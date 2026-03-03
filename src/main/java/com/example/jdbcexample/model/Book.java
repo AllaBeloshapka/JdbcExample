@@ -64,24 +64,5 @@ import java.math.BigDecimal;
     }
 
 
-/*
-CREATE TABLE books (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    publish_year INT,
-    publisher VARCHAR(255),
-    price DECIMAL(10, 2)
-);
- */
 
-/*
-Java Object <--> ORM (Object-Relational Mapping) Framework <--> Database Table
-Book <--> Hibernate ORM Framework <--> books
- */
-
-/*
-JPA - интерфейс, который определяет методы для работы с базой данных. (List<T>)
-Hibernate ORM Framework - реализация JPA. (ArrayList<T>)
- */
 

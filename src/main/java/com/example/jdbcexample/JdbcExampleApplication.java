@@ -9,30 +9,30 @@ import java.math.BigDecimal;
 public class JdbcExampleApplication {
 
     public static void main(String[] args) {
-        // Создаем книгу
+
+        // Create a book
         Book book = new Book();
-        book.setTitle("Война и мир");
-        book.setAuthor("Лев Толстой");
+        book.setTitle("War and Peace");
+        book.setAuthor("Leo Tolstoy");
         book.setPublishYear(1969);
-        book.setPublisher("Неуказано");
+        book.setPublisher("Not specified");
         book.setPrice(new BigDecimal("5.99"));
 
-        // Сохраняем
+        // Save the book
         Long id = BookJdbcExample.saveBook(book);
-        System.out.println("Книга сохранена с ID: " + id);
+        System.out.println("Book saved with ID: " + id);
 
-        // Получаем
+        // Retrieve the book
         Book foundBook = BookJdbcExample.findBookById(id);
         System.out.println("=========================");
-        System.out.println("Найдена книга: " + foundBook.getTitle());
+        System.out.println("Book found: " + foundBook.getTitle());
 
-        // Обновляем
+        // Update the book
 
-        // Удаляем
+        // Delete the book
         System.out.println("=========================");
         BookJdbcExample.deleteBook(id);
-        System.out.println("Книга удалена");
+        System.out.println("Book deleted");
     }
-
 }
 

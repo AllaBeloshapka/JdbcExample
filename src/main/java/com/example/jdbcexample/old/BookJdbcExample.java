@@ -76,46 +76,45 @@ public class BookJdbcExample {
     // ================= UPDATE =================
     public static Long updateBook(Book book) {
 
-        //Проверяем, что ID книги не null
+        // Check that the book ID is not null
         if (book.getId() == null) {
-            throw new IllegalArgumentException("ID книги не может быть null при обновлении");
+            throw new IllegalArgumentException("Book ID cannot be null when updating");
         }
 
-        // Обновляем уже существующую книгу по её id
-        // WHERE id = ? - чтобы изменить только одну строку
+        // Update an existing book by its id
+        // WHERE id = ? — to modify only one row
         String sql = "UPDATE books SET title = ?, author = ?, publish_year = ?, publisher = ?, price = ? WHERE id = ?";
 
-        // Открываем соединение с базой и подготавливаем SQL-запрос
+        // Open a database connection and prepare the SQL statement
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            // Подставляем реальные значения вместо ?
+            // Set real values instead of ?
             statement.setString(1, book.getTitle());
             statement.setString(2, book.getAuthor());
             statement.setInt(3, book.getPublishYear());
             statement.setString(4, book.getPublisher());
             statement.setBigDecimal(5, book.getPrice());
 
-            // В конце подставляем id — по нему база поймёт, какую строку менять
+            // Finally set the id — the database will use it to determine which row to update
             statement.setLong(6, book.getId());
 
-            // Выполняем обновление. Так как это UPDATE, используем executeUpdate
+            // Execute the update. Since this is UPDATE, use executeUpdate()
             int rowsAffected = statement.executeUpdate();
 
-            // Если ни одна строка не изменилась — значит книги с таким id нет
+            // If no rows were affected — there is no book with such id
             if (rowsAffected == 0) {
-                throw new RuntimeException("Книга с ID " + book.getId() + " не найдена");
+                throw new RuntimeException("Book with ID " + book.getId() + " not found");
             }
 
-            // Возвращаем id обновлённой книги
+            // Return the id of the updated book
             return book.getId();
 
         } catch (SQLException e) {
-            // Если произошла ошибка при работе с базой
-            throw new RuntimeException("Ошибка при обновлении книги: " + book.getTitle(), e);
+            // If an error occurred while working with the database
+            throw new RuntimeException("Error updating book: " + book.getTitle(), e);
         }
     }
-
     // ================= DELETE =================
     public static void deleteBook(Long id) {
 
